@@ -1,0 +1,7 @@
+{
+  "name": "african-capital-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
