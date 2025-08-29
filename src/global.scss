@@ -40,3 +40,8 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+html, body, ion-app, ion-content {
+  background-color: #ffffff !important;
+  --ion-background-color: #ffffff !important;
+}
