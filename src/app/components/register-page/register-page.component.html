@@ -14,7 +14,7 @@
         Register
       </h2>
 
-      <form class="space-y-5">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
         <!-- Full Name -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2"
@@ -23,8 +23,13 @@
           <input
             type="text"
             placeholder="Your Name"
+            formControlName="fullName"
             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
           />
+          <div *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid" class="mt-2 text-sm text-red-600">
+            <p *ngIf="registerForm.get('fullName')?.errors?.['required']">Full name is required.</p>
+            <p *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Full name must be at least 3 characters long.</p>
+          </div>
         </div>
 
         <!-- Email -->
@@ -35,8 +40,13 @@
           <input
             type="email"
             placeholder="you@example.com"
+            formControlName="email"
             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
           />
+          <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="mt-2 text-sm text-red-600">
+            <p *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</p>
+            <p *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
+          </div>
         </div>
 
         <!-- Password -->
@@ -47,6 +57,7 @@
           <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
             <input
               id="password"
+              formControlName="password"
               [type]="showPassword ? 'text' : 'password'"
               placeholder="••••••••"
               class="flex-1 px-4 py-3 bg-gray-50 rounded-l-lg focus:outline-none text-black"
@@ -71,6 +82,13 @@
               </ng-template>
             </button>
           </div>
+          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="mt-2 text-sm text-red-600">
+            <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</p>
+            <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</p>
+            <p *ngIf="registerForm.get('password')?.errors?.['pattern']">
+              Must include uppercase, lowercase, number, and special character (*@#+-).
+            </p>
+          </div>
         </div>
 
         <!-- Confirm Password -->
@@ -81,6 +99,7 @@
           <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
             <input
               id="confirm_password"
+              formControlName="confirmPassword"
               [type]="showConfirmPassword ? 'text' : 'password'"
               placeholder="••••••••"
               class="flex-1 px-4 py-3 bg-gray-50 rounded-l-lg focus:outline-none text-black"
@@ -104,6 +123,12 @@
                 </svg>
               </ng-template>
             </button>
+          </div>
+          <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="mt-2 text-sm text-red-600">
+            <p *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</p>
+          </div>
+          <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value" class="mt-2 text-sm text-red-600">
+            <p>Passwords do not match.</p>
           </div>
         </div>
 
