@@ -8,127 +8,237 @@
     />
 
     <div
-      class="w-full max-w-lg bg-white shadow-2xl border border-gray-200 rounded-2xl p-8"
+      class="w-full max-w-5xl bg-white shadow-2xl border border-gray-200 rounded-2xl p-8"
     >
       <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-6">
         Register
       </h2>
 
+      <!-- Tab Switch for Individual / Business -->
+      <div class="flex justify-center mb-6">
+        <div class="inline-flex rounded-lg border border-gray-300 bg-gray-100 p-1">
+          <button
+            type="button"
+            (click)="registerForm.get('accountType')?.setValue('individual')"
+            [ngClass]="registerForm.get('accountType')?.value === 'individual' ? 'bg-blue-600 text-white shadow' : 'text-gray-700'"
+            class="px-6 py-2 rounded-md font-medium focus:outline-none transition-colors duration-150"
+          >
+            Individual
+          </button>
+          <button
+            type="button"
+            (click)="registerForm.get('accountType')?.setValue('business')"
+            [ngClass]="registerForm.get('accountType')?.value === 'business' ? 'bg-blue-600 text-white shadow' : 'text-gray-700'"
+            class="px-6 py-2 rounded-md font-medium focus:outline-none transition-colors duration-150"
+          >
+            Business
+          </button>
+        </div>
+      </div>
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
-        <!-- Full Name -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Full Name</label
-          >
-          <input
-            type="text"
-            placeholder="Your Name"
-            formControlName="fullName"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
-          />
-          <div *ngIf="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid" class="mt-2 text-sm text-red-600">
-            <p *ngIf="registerForm.get('fullName')?.errors?.['required']">Full name is required.</p>
-            <p *ngIf="registerForm.get('fullName')?.errors?.['minlength']">Full name must be at least 3 characters long.</p>
-          </div>
-        </div>
 
-        <!-- Email -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Email</label
-          >
-          <input
-            type="email"
-            placeholder="you@example.com"
-            formControlName="email"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
-          />
-          <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="mt-2 text-sm text-red-600">
-            <p *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</p>
-            <p *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</p>
-          </div>
-        </div>
-
-        <!-- Password -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Password</label
-          >
-          <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+        <!-- INDIVIDUAL FIELDS -->
+        <div *ngIf="registerForm.get('accountType')?.value === 'individual'" class="grid grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
             <input
-              id="password"
-              formControlName="password"
-              [type]="showPassword ? 'text' : 'password'"
-              placeholder="••••••••"
-              class="flex-1 px-4 py-3 bg-gray-50 rounded-l-lg focus:outline-none text-black"
+              type="text"
+              formControlName="firstName"
+              placeholder="First Name"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
             />
-            <button
-              type="button"
-              (click)="togglePasswordVisibility('password')"
-              class="px-3 bg-transparent border-0 focus:outline-none text-blue-600"
-            >
-              <ng-container *ngIf="showPassword; else eyeClosed">
-                <!-- Eye open SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-              </ng-container>
-              <ng-template #eyeClosed>
-                <!-- Eye closed SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-                </svg>
-              </ng-template>
-            </button>
           </div>
-          <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="mt-2 text-sm text-red-600">
-            <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</p>
-            <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</p>
-            <p *ngIf="registerForm.get('password')?.errors?.['pattern']">
-              Must include uppercase, lowercase, number, and special character (*@#+-).
-            </p>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Surname</label>
+            <input
+              type="text"
+              formControlName="surname"
+              placeholder="Surname"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">ID Number</label>
+            <input
+              type="text"
+              formControlName="idNumber"
+              placeholder="ID Number"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+            <input
+              type="text"
+              formControlName="address"
+              placeholder="Address"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+            <input
+              type="tel"
+              formControlName="phone"
+              placeholder="Phone Number"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="you@example.com"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div class="col-span-3">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Bank Details</label>
+            <input
+              type="text"
+              formControlName="bankDetails"
+              placeholder="Bank Details"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
           </div>
         </div>
 
-        <!-- Confirm Password -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Confirm Password</label
-          >
-          <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+        <!-- BUSINESS FIELDS -->
+        <div *ngIf="registerForm.get('accountType')?.value === 'business'" class="grid grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
             <input
-              id="confirm_password"
-              formControlName="confirmPassword"
-              [type]="showConfirmPassword ? 'text' : 'password'"
-              placeholder="••••••••"
-              class="flex-1 px-4 py-3 bg-gray-50 rounded-l-lg focus:outline-none text-black"
+              type="text"
+              formControlName="companyName"
+              placeholder="Company Name"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
             />
-            <button
-              type="button"
-              (click)="togglePasswordVisibility('confirmPassword')"
-              class="px-3 bg-transparent border-0 focus:outline-none text-blue-600"
-            >
-              <ng-container *ngIf="showConfirmPassword; else eyeClosedConfirm">
-                <!-- Eye open SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-              </ng-container>
-              <ng-template #eyeClosedConfirm>
-                <!-- Eye closed SVG -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
-                </svg>
-              </ng-template>
-            </button>
           </div>
-          <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="mt-2 text-sm text-red-600">
-            <p *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</p>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Company Registration Number</label>
+            <input
+              type="text"
+              formControlName="companyReg"
+              placeholder="Registration Number"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
           </div>
-          <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value" class="mt-2 text-sm text-red-600">
-            <p>Passwords do not match.</p>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Registered Address</label>
+            <input
+              type="text"
+              formControlName="registeredAddress"
+              placeholder="Registered Address"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Director Name</label>
+            <input
+              type="text"
+              formControlName="directorName"
+              placeholder="Director Name"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Director Contact</label>
+            <input
+              type="tel"
+              formControlName="directorContact"
+              placeholder="Director Contact"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+          <div class="col-span-3">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Business Bank Details</label>
+            <input
+              type="text"
+              formControlName="businessBankDetails"
+              placeholder="Business Bank Details"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition text-black"
+            />
+          </div>
+        </div>
+
+        <!-- COMMON PASSWORD FIELDS -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <input
+                id="password"
+                formControlName="password"
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="••••••••"
+                class="flex-1 px-4 py-3 bg-gray-50 rounded-l-lg focus:outline-none text-black"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility('password')"
+                class="px-3 bg-transparent border-0 focus:outline-none text-blue-600"
+              >
+                <ng-container *ngIf="showPassword; else eyeClosed">
+                  <!-- Eye open SVG -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                </ng-container>
+                <ng-template #eyeClosed>
+                  <!-- Eye closed SVG -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                </ng-template>
+              </button>
+            </div>
+            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="mt-2 text-sm text-red-600">
+              <p *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</p>
+              <p *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</p>
+              <p *ngIf="registerForm.get('password')?.errors?.['pattern']">
+                Must include uppercase, lowercase, number, and special character (*@#+-).
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+            <div class="flex items-center border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500">
+              <input
+                id="confirm_password"
+                formControlName="confirmPassword"
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                placeholder="••••••••"
+                class="flex-1 px-4 py-3 bg-gray-50 rounded-l-lg focus:outline-none text-black"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility('confirmPassword')"
+                class="px-3 bg-transparent border-0 focus:outline-none text-blue-600"
+              >
+                <ng-container *ngIf="showConfirmPassword; else eyeClosedConfirm">
+                  <!-- Eye open SVG -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                </ng-container>
+                <ng-template #eyeClosedConfirm>
+                  <!-- Eye closed SVG -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                  </svg>
+                </ng-template>
+              </button>
+            </div>
+            <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="mt-2 text-sm text-red-600">
+              <p *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password.</p>
+            </div>
+            <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value" class="mt-2 text-sm text-red-600">
+              <p>Passwords do not match.</p>
+            </div>
           </div>
         </div>
 
