@@ -298,3 +298,11 @@ Files prefixed with `demo` can be safely deleted. They are there to provide a st
 
 You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
 # african-capital-frontend
+
+## Auth Pages
+
+- Routes: `/register` and `/login` are added in `src/routes/`.
+- Register collects: name, surname, ID number, email, password.
+- Login uses email + password.
+- Data is stored locally in `localStorage` (no backend). See `src/lib/auth.ts` to replace with real API calls.
+- Header shows Login/Register links and a Logout button when signed in.
