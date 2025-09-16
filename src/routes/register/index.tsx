@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { registerUser } from '@/lib/auth'
 
-export const Route = createFileRoute('/register/register')({
+export const Route = createFileRoute('/register/')({
   component: RegisterPage,
 })
 
@@ -156,3 +156,4 @@ function RegisterPage() {
     </div>
   )
 }
+

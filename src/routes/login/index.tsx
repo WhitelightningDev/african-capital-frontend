@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { login } from '@/lib/auth'
 
-export const Route = createFileRoute('/login/login')({
+export const Route = createFileRoute('/login/')({
   component: LoginPage,
 })
 
@@ -95,3 +95,4 @@ function LoginPage() {
     </div>
   )
 }
+
