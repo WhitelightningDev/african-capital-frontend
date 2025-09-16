@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { login } from '@/lib/auth'
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/login/login')({
   component: LoginPage,
 })
 
@@ -34,11 +34,11 @@ function LoginPage() {
       setError(res.error)
       return
     }
-    navigate({ to: '/' })
+    navigate({ to: '/dashboard' })
   }
 
   return (
-    <div className="min-h-[calc(100vh-60px)] flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="w-full max-w-md bg-white shadow rounded-lg p-6">
         <h1 className="text-2xl font-semibold mb-1">Welcome back</h1>
         <p className="text-sm text-gray-600 mb-6">Sign in to your account</p>
@@ -95,4 +95,3 @@ function LoginPage() {
     </div>
   )
 }
-

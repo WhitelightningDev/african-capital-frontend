@@ -29,11 +29,11 @@ export default function Header() {
           {/* Primary Nav */}
           <nav className="hidden md:flex items-center gap-1">
             <Link
-              to="/"
+              to="/dashboard"
               className={baseLink}
               activeProps={{ className: 'text-blue-700' }}
             >
-              Home
+              Dashboard
             </Link>
             {!user && (
               <>

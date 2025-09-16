@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import { registerUser } from '@/lib/auth'
 
-export const Route = createFileRoute('/register')({
+export const Route = createFileRoute('/register/register')({
   component: RegisterPage,
 })
 
@@ -49,14 +49,14 @@ function RegisterPage() {
       setError(res.error)
       return
     }
-    navigate({ to: '/' })
+    navigate({ to: '/dashboard' })
   }
 
   const update = (k: keyof Form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((s) => ({ ...s, [k]: e.target.value }))
 
   return (
-    <div className="min-h-[calc(100vh-60px)] flex items-center justify-center bg-gray-50 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="w-full max-w-md bg-white shadow rounded-lg p-6">
         <h1 className="text-2xl font-semibold mb-1">Create your account</h1>
         <p className="text-sm text-gray-600 mb-6">Fill in your details to register</p>
@@ -156,4 +156,3 @@ function RegisterPage() {
     </div>
   )
 }
-
